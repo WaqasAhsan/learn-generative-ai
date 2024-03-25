@@ -8,6 +8,7 @@ from dotenv import load_dotenv, find_dotenv
 from os import getenv
 
 _: bool = load_dotenv(find_dotenv())
+app = FastAPI()
 
 
 class Hero(SQLModel, table=True):
@@ -35,35 +36,3 @@ database_url = getenv("DATABASE_URL")
 connect_args = {"check_same_thread": False}
 engine = create_engine(database_url, echo=True)
 # engine = create_engine(sqlite_url, echo=True, connect_args=connect_args)
-
-
-def create_db_and_tables():
-    SQLModel.metadata.create_all(engine)
-
-
-app = FastAPI()
-
-
-@app.on_event("startup")
-def on_startup():
-    create_db_and_tables()
-
-
-@app.post("/heroes/")
-def create_hero(hero: Hero):
-    with Session(engine) as session:
-        session.add(hero)
-        session.commit()
-        session.refresh(hero)
-        return hero
-
-
-@app.get("/heroes/")
-def read_heroes():
-    with Session(engine) as session:
-        heroes = session.exec(select(Hero)).all()
-        return heroes
-
-
-if __name__ == "__main__":
-    create_db_and_tables()
