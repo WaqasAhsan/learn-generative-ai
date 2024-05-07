@@ -36,3 +36,5 @@ database_url = getenv("DATABASE_URL")
 connect_args = {"check_same_thread": False}
 engine = create_engine(database_url, echo=True)
 # engine = create_engine(sqlite_url, echo=True, connect_args=connect_args)
+
+
