@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project aims to develop an online mart API using an event-driven microservices architecture. The API will leverage various technologies such as FastAPI, Docker, DevContainers, Docker Compose, PostgreSQL, Kafka, Protocol Buffers (Protobuf), and Kong for API gateway management. The goal is to create a scalable, maintainable, and efficient system that handles high volumes of transactions and data in a distributed manner.
+This project aims to develop an online mart API using an event-driven microservices architecture. The API will leverage various technologies such as FastAPI, Docker, Dapr, DevContainers, Docker Compose, PostgreSQL, Kafka, Protocol Buffers (Protobuf), and Kong for API gateway management. It will use Azure Container Apps (ACA) for deployment, and GitHub Actions for CI/CD. The goal is to create a scalable, maintainable, and efficient system that handles high volumes of transactions and data in a distributed manner.
 
 Additionally, Test-Driven Development (TDD) and Behavior-Driven Development (BDD) practices will be incorporated to ensure high code quality and alignment with business requirements.
 
@@ -22,6 +22,7 @@ Additionally, Test-Driven Development (TDD) and Behavior-Driven Development (BDD
 
 - **FastAPI**: A modern, fast (high-performance) web framework for building APIs with Python.
 - **Docker**: For containerizing the microservices, ensuring consistency across different environments.
+- **Dapr**: Dapr stands for distributed application runtime. It is a self-hosted, open-source project that offers extra functionality to cloud-native applications through APIs, called building blocks, that simplify microservice connectivity. 
 - **DevContainers**: To provide a consistent development environment.
 - **Docker Compose**: For orchestrating multi-container Docker applications.
 - **PostgreSQL**: A powerful, open-source relational database system.
@@ -32,6 +33,8 @@ Additionally, Test-Driven Development (TDD) and Behavior-Driven Development (BDD
 - **Github Actions**: For CI/CD pipeline.
 - **Pytest**: For unit testing and TDD.
 - **Behave**: For BDD.
+- **Azure Container Apps**: For Cloud Deployment
+- **Github Actions**: For CI/CD
 
 ## Architecture
 
@@ -43,6 +46,8 @@ Additionally, Test-Driven Development (TDD) and Behavior-Driven Development (BDD
 4. **Inventory Service**: Manages stock levels and inventory updates.
 5. **Notification Service**: Sends notifications (email, SMS) to users about order statuses and other updates.
 6. **Payment Service**: Processes payments and manages transaction records.
+
+Note: We will use Pay Fast for Local Payment System. https://gopayfast.com/ And Stripe for international payments.
 
 ### Event-Driven Communication
 
@@ -132,90 +137,25 @@ As mentioned above, Behavior-driven development is an extension of Test-driven d
    - Write unit, integration, and end-to-end tests for all services.
    - Perform load testing to ensure scalability and performance.
 
-3. **Deployment (Optional)**
-   - Deploy services to a cloud platform (e.g., AWS, GCP, Azure) using Kubernetes for orchestration locally or the following Cloud Services:
+3. **Deployment**
 
-   Deploying containers in the cloud is a popular approach for managing and scaling applications. Various cloud providers offer a range of services to facilitate container deployment, management, and orchestration. Here are some of the prominent services available for deploying containers in the cloud:
+Azure Container Apps (Using Dapr and Keda)
 
-- **Amazon Web Services (AWS)**
+https://azure.microsoft.com/en-us/products/container-apps
 
-1. **Amazon Elastic Kubernetes Service (EKS)**
-   - Managed Kubernetes service that simplifies running Kubernetes on AWS without needing to install and operate your own Kubernetes control plane or nodes.
+Get started with the free tier: The first 180,000 vCPU per second, 360,000 GiB/s, and 2 million requests each month are free.
 
-2. **Amazon Elastic Container Service (ECS)**
-   - Fully managed container orchestration service that supports Docker containers. ECS can run applications on a managed cluster of Amazon EC2 instances or using AWS Fargate.
+Watch: https://www.youtube.com/watch?v=0HwQfsa03K8
 
-3. **AWS Fargate**
-   - Serverless compute engine for containers that works with ECS and EKS. It allows you to run containers without having to manage servers or clusters.
+Deploy: https://learn.microsoft.com/en-us/azure/container-apps/code-to-cloud-options
 
-4. **Amazon Lightsail**
-   - Simplified service for small-scale applications that need easy deployment and management of containers, virtual servers, and more.
+Azure Container Registry
 
-- **Microsoft Azure**
+https://azure.microsoft.com/en-us/products/container-registry/
 
-1. **Azure Kubernetes Service (AKS)**
-   - Managed Kubernetes service that simplifies Kubernetes cluster management, scaling, and upgrades.
+Deploy to Azure Container Apps with GitHub Actions
 
-2. **Azure Container Instances (ACI)**
-   - Offers a quick and easy way to run containers without managing servers, using a pay-per-second billing model.
-
-3. **Azure App Service**
-   - Platform as a Service (PaaS) offering that enables easy deployment and scaling of web apps, APIs, and mobile backends, including support for Docker containers.
-
-4. **Azure Red Hat OpenShift**
-   - Managed OpenShift service for running containerized applications using Kubernetes with integrated DevOps tools.
-
-- **Google Cloud Platform (GCP)**
-
-1. **Google Kubernetes Engine (GKE)**
-   - Managed Kubernetes service that offers easy, reliable, and scalable Kubernetes cluster management on GCP.
-
-2. **Google Cloud Run**
-   - Fully managed compute platform that automatically scales your stateless containers, billed only for the resources you use.
-
-3. **Google Cloud Functions**
-   - Serverless execution environment for building and connecting cloud services. You can deploy containerized functions as well.
-
-4. **Google App Engine**
-   - PaaS offering that allows you to build and deploy applications using containers, without managing the underlying infrastructure.
-
-- **IBM Cloud**
-
-1. **IBM Cloud Kubernetes Service**
-   - Managed Kubernetes service that provides advanced tools and security to deploy, manage, and scale containerized applications.
-
-2. **IBM Cloud Code Engine**
-   - Serverless platform for running containerized workloads, including web apps, microservices, and batch jobs.
-
-- **Oracle Cloud Infrastructure (OCI)**
-
-1. **Oracle Container Engine for Kubernetes (OKE)**
-   - Managed Kubernetes service that allows you to deploy and manage containerized applications with ease on Oracle Cloud.
-
-2. **Oracle Cloud Infrastructure Container Instances**
-   - Service for running containers directly on OCI without managing underlying infrastructure.
-
-- **Other Cloud Providers and Services**
-
-1. **DigitalOcean Kubernetes**
-   - Managed Kubernetes service that simplifies container orchestration on DigitalOcean's cloud.
-
-2. **Linode Kubernetes Engine (LKE)**
-   - Managed Kubernetes service that provides high-performance Kubernetes clusters on Linode's infrastructure.
-
-3. **Red Hat OpenShift on IBM Cloud**
-   - Managed OpenShift service that provides enterprise Kubernetes orchestration and DevOps capabilities.
-
-4. **VMware Tanzu**
-   - Suite of products for building, running, and managing containerized applications on Kubernetes across multi-cloud environments.
-
-- **Container Management Platforms**
-
-1. **Rancher**
-   - Open-source container management platform that simplifies deploying and managing Kubernetes clusters across various cloud providers and on-premises.
-
-2. **Portainer**
-   - Lightweight management UI that helps manage Docker and Kubernetes environments.
+https://learn.microsoft.com/en-us/azure/container-apps/github-actions
 
 
 ### Phase 4: Monitoring and Continues Delivery (Optional)
@@ -241,10 +181,16 @@ As mentioned above, Behavior-driven development is an extension of Test-driven d
    - Automating the build and deployment process reduces the time developers spend on manual tasks, allowing them to focus on writing code and developing features.
 
 - **Integration with Other Tools**
-   - GitHub Actions integrates well with other tools and services, such as container registries.
-   
+   - GitHub Actions integrates well with other tools and services, such as container registries.Do
 
 
+## Points to Note
+
+1. Use Dapr for interservices and Kafka messaging.
+2. Use SQLModel to communicate with Postgres Database.
+3. Docker Compose up should also create Dapr sidecar for each microservice.
+4. Use Azure Container Apps (ACA) to deploy on each git commit using Github Actions.
+5. When deploying to ACA we should run all tests and only deploy if all the tests have passed.
 
 ## Conclusion
 
